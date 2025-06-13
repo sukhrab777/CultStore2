@@ -51,7 +51,6 @@ class Products
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
         $this->ordersProducts = new ArrayCollection();
     }
 

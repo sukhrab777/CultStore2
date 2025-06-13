@@ -33,9 +33,9 @@ class ProductsForm extends AbstractType
                 'label' => 'Stock',
             ])
             ->add('picture', FileType::class, [
+                'label' => 'Image du produit',
                 'mapped' => false,
-                'constraints' =>
-                [
+                'constraints' => [
                     new Image(
                         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
                         mimeTypesMessage: 'seuls les formats jpeg, png et webp sont autorisés',

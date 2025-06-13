@@ -44,7 +44,7 @@ final class ProductsController extends AbstractController
                 //On déplace l'image vers son dossier d'upload
                 $picture->move($destination, $newName);
                 //On stock le nom de l'image
-                $picture->setImage($newName);
+                $product->setPicture($newName);
             }
 
             $entityManager->persist($product);
