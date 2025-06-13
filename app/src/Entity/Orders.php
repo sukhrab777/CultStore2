@@ -23,6 +23,9 @@ class Orders
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 0)]
     private ?string $total = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Users $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Orders
     public function setTotal(string $total): static
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

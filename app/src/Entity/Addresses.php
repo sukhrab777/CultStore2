@@ -34,6 +34,9 @@ class Addresses
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $address_supplement = null;
 
+    #[ORM\ManyToOne(inversedBy: 'address')]
+    private ?Users $users = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class Addresses
     public function setAddressSupplement(?string $address_supplement): static
     {
         $this->address_supplement = $address_supplement;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): static
+    {
+        $this->users = $users;
 
         return $this;
     }
