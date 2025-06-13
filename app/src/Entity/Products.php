@@ -35,12 +35,6 @@ class Products
     #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'product')]
     private Collection $reviews;
 
-    /**
-     * @var Collection<int, Pictures>
-     */
-    #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'product')]
-    private Collection $pictures;
-
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
@@ -50,6 +44,9 @@ class Products
      */
     #[ORM\OneToMany(targetEntity: OrdersProducts::class, mappedBy: 'products')]
     private Collection $ordersProducts;
+
+    #[ORM\Column(length: 255)]
+    private ?string $picture = null;
 
     public function __construct()
     {
@@ -142,36 +139,6 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection<int, Pictures>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Pictures $picture): static
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Pictures $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getProduct() === $this) {
-                $picture->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCategories(): ?Categories
     {
         return $this->categories;
@@ -210,6 +177,18 @@ class Products
                 $ordersProduct->setProducts(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
