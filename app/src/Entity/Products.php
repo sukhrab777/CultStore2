@@ -41,10 +41,21 @@ class Products
     #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'product')]
     private Collection $pictures;
 
+    #[ORM\ManyToOne(inversedBy: 'product')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categories $categories = null;
+
+    /**
+     * @var Collection<int, OrdersProducts>
+     */
+    #[ORM\OneToMany(targetEntity: OrdersProducts::class, mappedBy: 'products')]
+    private Collection $ordersProducts;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->ordersProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,6 +166,48 @@ class Products
             // set the owning side to null (unless already changed)
             if ($picture->getProduct() === $this) {
                 $picture->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategories(): ?Categories
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Categories $categories): static
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrdersProducts>
+     */
+    public function getOrdersProducts(): Collection
+    {
+        return $this->ordersProducts;
+    }
+
+    public function addOrdersProduct(OrdersProducts $ordersProduct): static
+    {
+        if (!$this->ordersProducts->contains($ordersProduct)) {
+            $this->ordersProducts->add($ordersProduct);
+            $ordersProduct->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersProduct(OrdersProducts $ordersProduct): static
+    {
+        if ($this->ordersProducts->removeElement($ordersProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersProduct->getProducts() === $this) {
+                $ordersProduct->setProducts(null);
             }
         }
 

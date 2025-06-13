@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrdersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,21 @@ class Orders
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Users $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Addresses $address = null;
+
+    /**
+     * @var Collection<int, OrdersProducts>
+     */
+    #[ORM\OneToMany(targetEntity: OrdersProducts::class, mappedBy: 'orders')]
+    private Collection $ordersProducts;
+
+    public function __construct()
+    {
+        $this->ordersProducts = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -78,4 +95,47 @@ class Orders
 
         return $this;
     }
+
+    public function getAddress(): ?Addresses
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Addresses $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrdersProducts>
+     */
+    public function getOrdersProducts(): Collection
+    {
+        return $this->ordersProducts;
+    }
+
+    public function addOrdersProduct(OrdersProducts $ordersProduct): static
+    {
+        if (!$this->ordersProducts->contains($ordersProduct)) {
+            $this->ordersProducts->add($ordersProduct);
+            $ordersProduct->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdersProduct(OrdersProducts $ordersProduct): static
+    {
+        if ($this->ordersProducts->removeElement($ordersProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($ordersProduct->getOrders() === $this) {
+                $ordersProduct->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

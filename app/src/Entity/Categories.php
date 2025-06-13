@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoriesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoriesRepository::class)]
@@ -18,6 +20,17 @@ class Categories
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<int, Products>
+     */
+    #[ORM\OneToMany(targetEntity: Products::class, mappedBy: 'categories')]
+    private Collection $product;
+
+    public function __construct()
+    {
+        $this->product = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +57,36 @@ class Categories
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Products>
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
+    }
+
+    public function addProduct(Products $product): static
+    {
+        if (!$this->product->contains($product)) {
+            $this->product->add($product);
+            $product->setCategories($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): static
+    {
+        if ($this->product->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getCategories() === $this) {
+                $product->setCategories(null);
+            }
+        }
 
         return $this;
     }

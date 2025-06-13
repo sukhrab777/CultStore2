@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressesRepository::class)]
@@ -36,6 +38,17 @@ class Addresses
 
     #[ORM\ManyToOne(inversedBy: 'address')]
     private ?Users $users = null;
+
+    /**
+     * @var Collection<int, Orders>
+     */
+    #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'address')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +147,36 @@ class Addresses
     public function setUsers(?Users $users): static
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getAddress() === $this) {
+                $order->setAddress(null);
+            }
+        }
 
         return $this;
     }
