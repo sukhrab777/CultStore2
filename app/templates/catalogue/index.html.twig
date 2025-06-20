@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <!-- Logo et Diaporama -->
+    <div class="header">
+        <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="logo">
+        <div class="diaporama">Diaporama (à remplacer par une image ou un carrousel)</div>
+    </div>
+
+    <!-- Section Filtre -->
+    <div class="filter-section">
+        <h2>Section filtre</h2>
+        <!-- Ajouter des filtres si nécessaire -->
+    </div>
+
+    <!-- Section Texte -->
+    <div class="text-section">
+        <h2>Texte</h2>
+    </div>
+
+    <!-- Grille de produits -->
+    <div class="catalogue-grid">
+        {% for produit in produits %}
+            <div class="product-card">
+                {% if produit.picture %}
+                    <img src="{{ asset('uploads/products/' ~ produit.picture) }}" alt="{{ produit.productName }}" style="max-width: 100%;">
+                {% endif %}
+                <h3>{{ produit.productName }}</h3>
+                <p>Prix : {{ produit.price }} €</p>
+            </div>
+        {% else %}
+            <p>Aucun produit trouvé.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Section Texte et Icônes -->
+    <div class="footer-section">
+        <div class="text-block">texte</div>
+        <div class="text-block">texte</div>
+        <div class="text-block">texte</div>
+        <div class="text-block">texte</div>
+        <div class="icons">
+            <span>Compte</span>
+            <span>Actu</span>
+            <span>Panier</span>
+            <span>Déco</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+{% endblock %}
