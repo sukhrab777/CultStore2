@@ -4,8 +4,7 @@
 
 {% block body %}
 <main>
-    <h1>Diaporama</h1>
-                <div id="diapo">
+                <section id="diapo">
                     <div class="elements">
                         <figure class="element active">
                             <img src="{{ asset('images/ChatGPT Image 20 juin 2025, 11_2.png') }}" alt="diapo">
@@ -13,26 +12,25 @@
                         </figure>
 
                         <figure class="element">
-                            <img src="{{ asset('images/DALL·E 2025-02-19 17.36.26 - A vibrant and modern homepage banner for an e-commerce website specializing in merchandise from movies, TV series, and anime. The image features a dyn.png') }}" alt="diapo">
+                            <img src="{{ asset('images/DALL·E 2025-02-19 17.36.26.png') }}" alt="diapo">
                             <figcaption></figcaption>
                         </figure>
 
                         <figure class="element">
-                            <img src="{{ asset('/images/girl-8651485_1280.png') }}" alt="">
+                            <img src="{{ asset('/images/girl-8651485_1280.png') }}" alt="diapo">
                             <figcaption></figcaption>
                         </figure>
 
 
                     </div>
-                    <span id="flechedroite" role="button"></span>
+                    <span id="flechedroite" role="button">⮕</span>
                     <span id="flechegauche" role="button">⬅</span>
                     <div class="indicators">
                         <div class="bar active"></div>
                         <div class="bar"></div>
                         <div class="bar"></div>
-                        <div class="bar"></div>
                     </div>
-                </div>
+                </section>
                 <!-- Barre de recherche -->
                 <div class="search-bar">
                     <form action="/recherche" method="get">
