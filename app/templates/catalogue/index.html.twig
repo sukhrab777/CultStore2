@@ -1,59 +1,63 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Catalogue{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-{% endblock %}
-
 {% block body %}
-    <!-- Logo et Diaporama -->
-    <div class="header">
-        <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="logo">
-        <div class="diaporama">Diaporama (à remplacer par une image ou un carrousel)</div>
-    </div>
-
-    <!-- Section Filtre -->
-    <div class="filter-section">
-        <h2>Section filtre</h2>
-        <!-- Ajouter des filtres si nécessaire -->
-    </div>
-
-    <!-- Section Texte -->
-    <div class="text-section">
-        <h2>Texte</h2>
-    </div>
-
-    <!-- Grille de produits -->
-    <div class="catalogue-grid">
-        {% for produit in produits %}
-            <div class="product-card">
-                {% if produit.picture %}
-                    <img src="{{ asset('uploads/products/' ~ produit.picture) }}" alt="{{ produit.productName }}" style="max-width: 100%;">
-                {% endif %}
-                <h3>{{ produit.productName }}</h3>
-                <p>Prix : {{ produit.price }} €</p>
-            </div>
-        {% else %}
-            <p>Aucun produit trouvé.</p>
-        {% endfor %}
-    </div>
-
-    <!-- Section Texte et Icônes -->
-    <div class="footer-section">
-        <div class="text-block">texte</div>
-        <div class="text-block">texte</div>
-        <div class="text-block">texte</div>
-        <div class="text-block">texte</div>
-        <div class="icons">
-            <span>Compte</span>
-            <span>Actu</span>
-            <span>Panier</span>
-            <span>Déco</span>
+    <!-- En-tête principal -->
+    <header class="header" role="banner">
+        <img src="{{ asset('assets/images/logo.png') }}" alt="Logo de CultStore" class="logo">
+        <!-- Diaporama promotionnel -->
+        <div class="diaporama" role="region" aria-label="Diaporama promotionnel">
+            <img src="{{ asset('assets/images/slide1.jpg') }}" alt="Promotion 1">
+            <img src="{{ asset('assets/images/slide2.jpg') }}" alt="Promotion 2">
+            <img src="{{ asset('assets/images/slide3.jpg') }}" alt="Promotion 3">
         </div>
-    </div>
+    </header>
+
+    <!-- Section de recherche et filtres -->
+    <section class="filter-section" role="search">
+        <h2>Filtrer les produits</h2>
+        <form action="{{ path('catalogue_index') }}" method="get">
+            <label for="search-input">Rechercher un produit</label>
+            <input type="text" id="search-input" name="search" placeholder="Rechercher un produit...">
+            <button type="submit">Rechercher</button>
+        </form>
+    </section>
+
+    <!-- Contenu principal : grille de produits -->
+    <main class="catalogue-grid" role="main">
+        <div class="product-list" role="list">
+            {% for produit in produits %}
+                <article class="product-card" role="listitem">
+                    <img src="{{ asset('uploads/products/' ~ produit.picture) }}" alt="{{ produit.productName }}";
+                    <h3>{{ produit.productName }}</h3>
+                    <p>Prix : {{ produit.price }} €</p>
+                </article>
+            {% else %}
+                <p>Aucun produit trouvé.</p>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Section complémentaire -->
+    <section class="text-section" role="complementary">
+        <h2>Informations supplémentaires</h2>
+        <p>Contenu texte ici...</p>
+    </section>
+
+    <!-- Pied de page -->
+    <footer class="footer" role="contentinfo">
+        <nav class="footer-nav" aria-label="Navigation du pied de page">
+            <a href="#">Compte</a>
+            <a href="#">Actu</a>
+            <a href="#">Panier</a>
+            <a href="#">Déco</a>
+        </nav>
+    </footer>
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset('assets/js/script.js') }}"></script>
-{% endblock %}
+
+
+
+
