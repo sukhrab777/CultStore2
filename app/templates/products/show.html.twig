@@ -8,18 +8,18 @@
             <h1>{{ product.productName }}</h1>
         </div>
 
-        <div class="produit">
+        <div class="product">
             {# Image du produit #}
-            <div class="image-produit">
+            <div class="product-image">
                 {% if product.picture %}
                     <img src="{{ asset('uploads/' ~ product.picture) }}"
                          alt="Image du produit {{ product.productName }}">
                 {% else %}
-                    <p>Auncune image disponible.</p>
+                    <p>Auncune image disponaible.</p>
                 {% endif %}
             </div>
 
-            <div class="quantite">
+            <div class="quantity">
                 <select class="">
                     <option disabled selected>Quantité</option>
                     {% for i in 1..10 %}
@@ -31,14 +31,21 @@
             {# Prix et bouton panier #}
             <div class="">
                 <div class="">{{ product.price|number_format(2, ',', ' ') }}€</div>
-                <button class="" data-id="{{ product.id }}" type="submit">Ajouter au Panier</button>
+                <button class="ajouter-panier"
+                        data-id="{{ product.id }}"
+                        data-name="{{ product.productName }}"
+                        data-description="{{ product.description }}"
+                        data-price="{{ product.price }}"
+                        data-stock="{{ product.stock }}"
+                        type="button">
+                    Ajouter au Panier
+                </button>
             </div>
 
             {# Icône de like ou favori #}
-            <div class="favoris">
+            <div class="favory">
                 <span>♡</span>
             </div>
-            </form>
 
             {# Paiement #}
             <div class="icons">

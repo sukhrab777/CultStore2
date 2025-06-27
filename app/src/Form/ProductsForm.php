@@ -35,7 +35,6 @@ class ProductsForm extends AbstractType
             ->add('picture', FileType::class, [
                 'label' => 'Image du produit',
                 'mapped' => false,
-                'required' => false,
                 'constraints' => [
                     new Image(
                         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],

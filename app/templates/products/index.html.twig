@@ -25,7 +25,11 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
-                <td>{{ product.picture }}</td>
+                <td>{% if product.picture %}
+                        <img src="{{ asset('uploads/products/' ~ product.picture) }}" alt="Image {{ product.productName }}" style="max-width: 100px;">
+                    {% else %}
+                        <em>Aucune image</em>
+                    {% endif %}</td>
                 <td>
                     <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
@@ -41,3 +45,4 @@
 
     <a href="{{ path('app_products_new') }}">Create new</a>
 {% endblock %}
+

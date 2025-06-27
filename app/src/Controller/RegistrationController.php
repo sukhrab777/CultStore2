@@ -27,9 +27,20 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $email = $form->get('email')->getData();
+            $confirmEmail = $form->get('confirmEmail')->getData();
+            if ($email && $confirmEmail) {
+                $this->addFlash('erreur', 'Les adresses email ne correspondent pas');
+                return $this->redirectToRoute('app_register');
+            }
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
+            $confirmPassword = $form->get('confirmPassword')->getData();
+            if ($plainPassword !== $confirmPassword) {
+                $this->addFlash('error', 'Les mots de passe ne correspondent pas');
+                return $this->redirectToRoute('app_register');
+            }
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
@@ -49,7 +60,7 @@ class RegistrationController extends AbstractController
                 'register', $context
             );
 
-
+            $this->addFlash('success', 'Inscription réussie !');
             return $this->redirectToRoute('app_products_index');
         }
 
