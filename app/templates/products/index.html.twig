@@ -1,43 +1,33 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/anais.css') }}">
+{% endblock %}
+
+
 {% block title %}Products index{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <h1>Nos produits</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Product_name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="product-grid">
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.productName }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>
-                <td>{{ product.picture }}</td>
-                <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="product-card">
+                {% if product.picture %}
+                    <img class="product-card" src="{{ asset('uploads/products/' ~ product.picture) }}" alt="{{ product.productName }}">
+                {% else %}
+                    <div class="no-image">Image non disponible</div>
+                {% endif %}
 
-    <a href="{{ path('app_products_new') }}">Create new</a>
+                <h2>{{ product.productName }}</h2>
+                <p class="price">{{ product.price | number_format(2, '.', ' ') }} €</p>
+
+                <a href="{{ path('app_products_show', {'id': product.id}) }}" class="btn">Voir plus</a>
+            </div>
+        {% else %}
+            <p>Aucun produit trouvé</p>
+        {% endfor %}
+    </div>
 {% endblock %}
+
+

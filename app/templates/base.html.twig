@@ -9,11 +9,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Basic&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-
         {% block stylesheets %}
         {% endblock %}
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <script src="{{ asset('js/script.js') }}" defer></script>
+
         {% block javascripts %}
 
 
@@ -39,7 +39,6 @@
 
     </header>
     <body>
-
         {% block body %}{% endblock %}
     </body>
 </html>

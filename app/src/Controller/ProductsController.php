@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Form\ProductsForm;
 use App\Repository\ProductsRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class ProductsController extends AbstractController
 {
-    #[Route('/', name: 'app_products_index', methods: ['GET'])]
+    #[Route('/produit', name: 'app_products_index', methods: ['GET'])]
     public function index(ProductsRepository $productsRepository): Response
     {
         return $this->render('products/index.html.twig', [
@@ -22,8 +23,8 @@ final class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'app_products_new', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    #[Route('/produit/ajouter', name: 'app_products_new', methods: ['GET', 'POST'])]
+    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, PictureService $pictureService): Response
     {
         $product = new Products();
         $form = $this->createForm(ProductsForm::class, $product);
@@ -32,20 +33,13 @@ final class ProductsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData();
 
-            if ($picture) {
-                //On récupère le nom de l'image sans l'extension
-                $originalName = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-                //On nettoie le nom de l'image (Enlever espace, caractères spéciaux etc)
-                $safeName = strtolower($slugger->slug($originalName));
-                //On compose le nouveau nom
-                $newName = $safeName . '-' . uniqid() . '.' . $picture->guessExtension();
-                //On récupère la destination
-                $destination = $this->getParameter('uploads_directory');
-                //On déplace l'image vers son dossier d'upload
-                $picture->move($destination, $newName);
+            if ($picture){
+                //Appel du Picture service
+                $newName= $pictureService->square($picture,'products', 300);
                 //On stock le nom de l'image
                 $product->setPicture($newName);
             }
+
 
             $entityManager->persist($product);
             $entityManager->flush();
@@ -59,7 +53,7 @@ final class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/show', name: 'app_products_show', methods: ['GET'])]
+    #[Route('/produit/{id}/details', name: 'app_products_show', methods: ['GET'])]
     public function show(Products $product): Response
     {
         return $this->render('products/show.html.twig', [
@@ -67,7 +61,7 @@ final class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_products_edit', methods: ['GET', 'POST'])]
+    #[Route('produit/{id}/modifier', name: 'app_products_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Products $product, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProductsForm::class, $product);
@@ -85,7 +79,7 @@ final class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_products_delete', methods: ['POST'])]
+    #[Route('/produit/{id}/supprimer', name: 'app_products_delete', methods: ['POST'])]
     public function delete(Request $request, Products $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->getPayload()->getString('_token'))) {
