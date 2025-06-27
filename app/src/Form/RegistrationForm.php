@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use function Sodium\add;
 
 class RegistrationForm extends AbstractType
 {
@@ -20,30 +21,46 @@ class RegistrationForm extends AbstractType
     {
         $builder
             ->add('lastname', TextType::class, [
-                'label' =>  'Nom',
+                'label' => 'Nom',
             ])
             ->add('firstname', TextType::class, [
-                'label' =>  'Prenom',
+                'label' => 'Prenom',
             ])
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez remplir votre adresse email',
+                    ])
+                ]
+            ])
+            ->add('confirmEmail', EmailType::class, [
+                'label' => 'Confirmez votre email',
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez comfirmer votre adresse email']),
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' =>  'J\'accepte les conditions d\'utilisation',
-                                'mapped' => false,
+                'label' => 'J\'accepte les conditions d\'utilisation',
+                'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Success' ,
+                        'message' => 'Success',
                     ]),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
+                // instead of being set onto the object directly,
                 // this is read and encoded in the controller
-                'label' =>  'Mot de passe',
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez rentrer votre mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
@@ -53,7 +70,15 @@ class RegistrationForm extends AbstractType
                     ]),
                 ],
             ])
-        ;
+            ->add('confirmPassword', PasswordType::class, [
+                'label' => 'Confirmez votre mot de passe',
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez confirmer votre mot de passe',
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

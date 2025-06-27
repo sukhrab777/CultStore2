@@ -34,7 +34,7 @@ nav ul {
 }
 
 nav ul.open {
-    display: block;
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
