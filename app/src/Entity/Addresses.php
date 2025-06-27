@@ -37,6 +37,7 @@ class Addresses
     private ?string $address_supplement = null;
 
     #[ORM\ManyToOne(inversedBy: 'address')]
+     #[ORM\JoinColumn(nullable: false)]
     private ?Users $users = null;
 
     /**

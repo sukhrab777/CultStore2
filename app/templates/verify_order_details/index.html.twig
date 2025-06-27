@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VerifyOrderDetailsController!{% endblock %}
+
+{% block body %}
+ <main>
+  <form id="form-commande" method="POST" action="{{ path('app_main') }}" class="order">
+      <input type="hidden" name="panier" id="panier-hidden-input">
+
+      {# Tu peux aussi ajouter des champs cachés pour l'adresse et la livraison si besoin #}
+      <h1>Choisissez une adresse de livraison</h1>
+
+{% if addresses is not empty %}
+    {% for address in addresses %}
+        <div>
+            <input type="radio" name="address_id" value="{{ address.id }}" required>
+            <label>
+                {{ address.addressNumber }} {{ address.street }}, {{ address.postalCode }} {{ address.city }} {{ address.addressSupplement }}
+            </label>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div>
+    <input type="radio" name="address_id" value="new" id="newAddress" required>
+    <label for="newAddress">
+        <a href="{{ path('app_addresses_new') }}">Ajouter une nouvelle adresse</a>
+    </label>
+</div>
+
+
+
+
+
+    <h2>Mode de livraison</h2>
+      <div>
+          <input type="radio" name="delivery_mode" value="standard" id="standard" checked>
+            <label for="standard">Livraison Standard (gratuite)</label>
+      </div>
+    <div>
+        <input type="radio" name="delivery_mode"  id="mode" value="express">
+        <label for="mode">Livraison Express (5 €)</label>
+    </div>
+
+
+
+     <button type="submit">valider</button>
+</form>
+{% endblock %}
