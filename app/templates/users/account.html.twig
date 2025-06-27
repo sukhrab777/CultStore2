@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - CultStore{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+
+    <p><strong>Prénom :</strong> {{ user.firstname }}</p>
+    <p><strong>Nom :</strong> {{ user.lastname }}</p>
+    <p><strong>Email :</strong> {{ user.email }}</p>
+    <p><strong>Date d'inscription :</strong> {{ user.registration_date ? user.registration_date|date('d/m/Y') : 'Non définie' }}</p>
+    {% if user.avatar %}
+        <img src="{{ asset('uploads/avatars/' ~ user.avatar) }}" alt="Avatar" width="100">
+    {% else %}
+        <p>Aucun avatar</p>
+    {% endif %}
+    <a href="{{ path('app_user_avatar') }}">Modifier l'avatar</a>
+
+    <h2>Mes commandes</h2>
+    {% if orders|length > 0 %}
+        <ul>
+            {% for order in orders %}
+                <li>Commande #{{ order.id }} - {{ order.order_date|date('d/m/Y') }} - {{ order.total }} € - Statut : {{ order.status }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune commande passée.</p>
+    {% endif %}
+    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+{% endblock %}

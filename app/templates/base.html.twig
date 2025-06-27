@@ -19,22 +19,26 @@
         {% endblock %}
     </head>
     <header>
-
-        {% block header %}
-            <nav>
-                <a href="{{ path('app_products_index') }}" class="logo"><img src="{{ asset('images/logo_groupe_2.png') }}" alt="logo"></a>
-                <ul class="open">
-                    <li class="active"><a href="#">Inscription</a></li>
-                    <li><a href="#">Mon compte</a></li>
-                    <li><a href="#">panier</a></li>
-                </ul>
-                <div>
-                    <svg id="burger" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
-                        <use href="{{ asset('images/sprite.svg#burger') }}"></use>
-                    </svg>
-                </div>
-            </nav>
-        {% endblock %}
+       {% block header %}
+    <nav>
+        <a href="{{ path('app_products_index') }}" class="logo"><img src="{{ asset('images/logo_groupe_2.png') }}" alt="logo"></a>
+        <ul class="open">
+            {% if app.user %}
+                <li><a href="{{ path('app_user_account') }}">Mon compte</a></li>
+                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+            <li><a href="#">Panier</a></li>
+        </ul>
+        <div>
+            <svg id="burger" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+                <use href="{{ asset('images/sprite.svg#burger') }}"></use>
+            </svg>
+        </div>
+    </nav>
+{% endblock %}
 
     </header>
     <body>

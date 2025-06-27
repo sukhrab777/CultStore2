@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250620100545 extends AbstractMigration
+final class Version20250627084713 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,6 +26,9 @@ final class Version20250620100545 extends AbstractMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE reset_password_request ADD CONSTRAINT FK_7CE748AA76ED395 FOREIGN KEY (user_id) REFERENCES users (id)
         SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE users ADD is_verified TINYINT(1) NOT NULL, ADD avatar VARCHAR(255) DEFAULT NULL
+        SQL);
     }
 
     public function down(Schema $schema): void
@@ -36,6 +39,9 @@ final class Version20250620100545 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE reset_password_request
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE users DROP is_verified, DROP avatar
         SQL);
     }
 }
