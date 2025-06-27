@@ -1,42 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products{% endblock %}
+{% block title %}{{ product.productName }}{% endblock %}
 
 {% block body %}
-    <h1>Products</h1>
+    <div class="">
+        <div class="">
+            <h1>{{ product.productName }}</h1>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Product_name</th>
-                <td>{{ product.productName }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ product.stock }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ product.picture }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="product">
+            {# Image du produit #}
+            <div class="product-image">
+                {% if product.picture %}
+                    <img src="{{ asset('uploads/' ~ product.picture) }}"
+                         alt="Image du produit {{ product.productName }}">
+                {% else %}
+                    <p>Auncune image disponaible.</p>
+                {% endif %}
+            </div>
 
+            <div class="quantity">
+                <select class="">
+                    <option disabled selected>Quantité</option>
+                    {% for i in 1..10 %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {# Prix et bouton panier #}
+            <div class="">
+                <div class="">{{ product.price|number_format(2, ',', ' ') }}€</div>
+                <button class="ajouter-panier"
+                        data-id="{{ product.id }}"
+                        data-name="{{ product.productName }}"
+                        data-description="{{ product.description }}"
+                        data-price="{{ product.price }}"
+                        data-stock="{{ product.stock }}"
+                        type="button">
+                    Ajouter au Panier
+                </button>
+            </div>
+
+            {# Icône de like ou favori #}
+            <div class="favory">
+                <span>♡</span>
+            </div>
+
+            {# Paiement #}
+            <div class="icons">
+                <svg id="visa" width="50" height="30" xmlns="http://www.w3.org/2000/svg">
+                    <use href="{{ asset('images/sprite.svg#visa') }}"></use>
+                </svg>
+                <svg id="mastercard" width="50" height="30" xmlns="http://www.w3.org/2000/svg">
+                    <use href="{{ asset('images/sprite.svg#mastercard') }}"></use>
+                </svg>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Copyright© {{ "now"|date("Y") }} – Mentions Légales
+        </footer>
+    </div>
     <a href="{{ path('app_products_index') }}">back to list</a>
 
     <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
 
     {{ include('products/_delete_form.html.twig') }}
 {% endblock %}
+
+
