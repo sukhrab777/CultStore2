@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\RegistrationForm;
 use App\Repository\UsersRepository;
-use App\Services\EmailServices;
+use App\Services\Services\EmailServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

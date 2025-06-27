@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
-class EmailServices
+class EmailService
 {
     private MailerInterface $mailer;
     public function __construct(MailerInterface $mailer)

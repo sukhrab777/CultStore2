@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Form\ProductsForm;
 use App\Repository\ProductsRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ final class ProductsController extends AbstractController
     }
 
     #[Route('/produit/ajouter', name: 'app_products_new', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, PictureService $pictureService): Response
     {
         $product = new Products();
         $form = $this->createForm(ProductsForm::class, $product);
@@ -32,20 +33,13 @@ final class ProductsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData();
 
-            if ($picture) {
-                //On récupère le nom de l'image sans l'extension
-                $originalName = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-                //On nettoie le nom de l'image (Enlever espace, caractères spéciaux etc)
-                $safeName = strtolower($slugger->slug($originalName));
-                //On compose le nouveau nom
-                $newName = $safeName . '-' . uniqid() . '.' . $picture->guessExtension();
-                //On récupère la destination
-                $destination = $this->getParameter('uploads_directory');
-                //On déplace l'image vers son dossier d'upload
-                $picture->move($destination, $newName);
+            if ($picture){
+                //Appel du Picture service
+                $newName= $pictureService->square($picture,'products', 300);
                 //On stock le nom de l'image
                 $product->setPicture($newName);
             }
+
 
             $entityManager->persist($product);
             $entityManager->flush();
