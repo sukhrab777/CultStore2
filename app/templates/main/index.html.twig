@@ -7,23 +7,21 @@
                 <section id="diapo">
                     <div class="elements">
                         <figure class="element active">
-                            <img src="{{ asset('images/ChatGPT Image 20 juin 2025, 11_2.png') }}" alt="diapo">
+                            <img src="{{ asset('images/diapo1.png') }}" alt="diapo">
                             <figcaption></figcaption>
                         </figure>
 
                         <figure class="element">
-                            <img src="{{ asset('images/DALL·E 2025-02-19 17.36.26.png') }}" alt="diapo">
+                            <img src="{{ asset('images/diapo2.png') }}" alt="diapo">
                             <figcaption></figcaption>
                         </figure>
 
                         <figure class="element">
-                            <img src="{{ asset('/images/girl-8651485_1280.png') }}" alt="diapo">
+                            <img src="{{ asset('/images/diapo3.png') }}" alt="diapo">
                             <figcaption></figcaption>
                         </figure>
-
-
                     </div>
-                    <span id="flechedroite" role="button">⮕</span>
+                    <span id="flechedroite" role="button">➡</span>
                     <span id="flechegauche" role="button">⬅</span>
                     <div class="indicators">
                         <div class="bar active"></div>
@@ -38,114 +36,79 @@
                         <button type="submit">Rechercher</button>
                     </form>
                 </div>
-                <nav>
-                    <div class="categories">
-                        <div class="category">FIGURINES
-
-                        </div>
-                        <div class="category">MUGS</div>
-                        <div class="category">POSTER</div>
+                <section class="cat">
+                    <div class="categories1">
+                        {% for category in categories  %}
+                            <a href="#">{{ category.name }}</a>
+                        {% endfor %}
                     </div>
-
-                    <div class="sub-categories">
-                        <div class="sub-category">VÊTEMENTS</div>
-                        <div class="sub-category">Autres</div>
-                    </div>
-                </nav>
-
-                <section>
-                    <h2 class="section-title">Nouveautés</h2>
-                    <figure>
-                        <img src="{{ asset('uploads/products/brothers-and-sisters-610472-1280-684c42a6b0a21.jpg') }}" alt="brothers-and-sisters">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure>
-                        <img src="{{ asset('uploads/products/deku-6853d513434f4.jpg') }}" alt="deku">
-                        <figcaption></figcaption>
-                    </figure>
-                       <figure>
-                            <img src="{{ asset('uploads/products/zorro-6853e02d025fd.jpg') }}" alt="deku">
-                                <figcaption></figcaption>
-                                </figure>
                 </section>
 
-                <section>
-                    <h2 class="section-title">Meilleures ventes</h2>
-                    <figure>
-                        <img src="{{ asset('uploads/products/luffy-gear-5-6853d4776e430.webp') }}" alt="">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure>
-                        <img src="{{ asset('uploads/products/pehmonukkeja-228885-1280-684e00ac6fa4b.jpg') }}" alt="">
-                        <figcaption></figcaption>
-                    </figure>
-                    <figure>
-                            <img src="{{ asset('uploads/products/this-change-to-the-anime-poster-art-makes-my-heart-happy-v0-9nrvz6sawo9e1-jpg-68511be93af86.webp') }}" alt="">
-                        <figcaption></figcaption>
-                            </figure>
-        </div>
+                <section class="nouveautes">
+                    <h2 class="section-title">Nouveautés</h2>
+                    <div class="image-row">
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+                        </a>
+                    </div>
+                </section>
+
+                <section class="meilleures-ventes">
+                    <h2>Meilleures ventes</h2>
+                    <div class="image-row">
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+                        </a>
+                        <a href="">
+                            <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters">
+                        </a>
+                    </div>
+                </section>
+
+
+        <section class="categories3">
+            <h2>Découvrez Nos Catégories de produits</h2>
+              <div>
+                  <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
+                  <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
+              </div>
         </section>
-
-        <section>
-            <h2 class="section-title">Promos</h2>
-            <figure>
-                <img src="{{ asset('uploads/products/sheep-5623676-1280-684e0171484c7.jpg') }}" alt="">
-                <figcaption></figcaption>
-            </figure>
-            <figure>
-                <img src="{{ asset('uploads/products/teddy-3405770-1280-684e0353a8dc5.jpg') }}" alt="">
-                <figcaption></figcaption>
-            </figure>
-             <figure>
-                            <img src="{{ asset('uploads/products/peaky-blinders-685111d945276.jpg') }}" alt="">
-                            <figcaption></figcaption>
-                        </figure>
-        </section>
-
-        <section>
-            <h2 class="section-title">Découvrez Nos Catégories de produits</h2>
-
+        <section class="figurines">
+            <h3>Figurine</h3>
             <div class="product-category">
-                <div class="category-header">
-                    <div class="category-title"></div>
-                    <div class="arrow">→</div>
-                </div>
-                <div class="product-grid">
-                    <div class="product"></div>
-                    <div class="product"></div>
-                </div>
+                <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
+                <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
+                <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
+                <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
             </div>
+        </section >
 
-            <div class="product-category">
-                <h3 class="featured-title">Figurine</h3>
-                <div class="category-header">
-                    <div class="category-title"></div>
-                    <div class="arrow">→</div>
-                </div>
-                <div class="product-grid">
-                    <div class="product"></div>
-                    <div class="product"></div>
-                </div>
-            </div>
-
-            <div class="product-category">
-                <div class="category-header">
-                    <div class="category-title"></div>
-                    <div class="arrow">→</div>
-                </div>
-                <div class="product-grid">
-                    <div class="product"></div>
-                    <div class="product"></div>
-                </div>
-            </div>
-        </section>
         <section class="end">
+            <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
             <p>Bienvenue dans l'univers de CulteStore!</p>
             <p>Plongez dans un monde où la passion du cinéma, rencontre l'art de la collection et de la mode !</p>
             <p>Que vous soyez un cinéphile inconditionnel, un collectionneur de figurines ou un amateur de vêtements
                 uniques.</p>
             <p>Trouvez tous vos articles préférés, vous êtes au bon endroit.</p>
             <p>Billeterie Festival Série Mania!</p>
+            <a href=""> <img src="{{ asset('uploads/products/avengers-infinity-war-68512e7444038.jpg') }}" alt="brothers-and-sisters"> </a>
         </section>
 </main>
+    <footer>
+     {{ include('partials/footer.html.twig') }}
+    </footer>
 {% endblock %}
