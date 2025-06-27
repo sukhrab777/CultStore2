@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html.twig' %}
 
 {% block title %}Products index{% endblock %}
@@ -41,3 +42,52 @@
 
     <a href="{{ path('app_products_new') }}">Create new</a>
 {% endblock %}
+=======
+{% extends 'base.html.twig' %}
+
+{% block title %}Products index{% endblock %}
+
+{% block body %}
+    <h1>Products index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product_name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Picture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{% if product.picture %}
+                        <img src="{{ asset('uploads/products/' ~ product.picture) }}" alt="Image {{ product.productName }}" style="max-width: 100px;">
+                    {% else %}
+                        <em>Aucune image</em>
+                    {% endif %}</td>
+                <td>
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_products_new') }}">Create new</a>
+{% endblock %}
+>>>>>>> 0824579ed653771f0ac02d7cbb33af3c6cffb52c
