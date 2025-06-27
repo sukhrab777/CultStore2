@@ -62,12 +62,20 @@ final class ProductsController extends AbstractController
     }
 
     #[Route('produit/{id}/modifier', name: 'app_products_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Products $product, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Products $product, EntityManagerInterface $entityManager, PictureService $pictureService): Response
     {
         $form = $this->createForm(ProductsForm::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newPicture = $form->get('picture')->getData();
+            if ($newPicture){
+                //Appel du Picture service
+                $newName= $pictureService->square($newPicture,'products', 300);
+                //On stock le nom de l'image
+                $product->setPicture($newName);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
