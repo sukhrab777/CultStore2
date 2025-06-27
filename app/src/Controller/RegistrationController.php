@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\RegistrationForm;
 use App\Repository\UsersRepository;
+use App\Service\EmailService;
 use App\Services\Services\EmailServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,27 +21,15 @@ class RegistrationController extends AbstractController
 
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, EmailServices $emailServices ): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, EmailService $emailService ): Response
     {
         $user = new Users();
         $form = $this->createForm(RegistrationForm::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $email = $form->get('email')->getData();
-            $confirmEmail = $form->get('confirmEmail')->getData();
-            if ($email && $confirmEmail) {
-                $this->addFlash('erreur', 'Les adresses email ne correspondent pas');
-                return $this->redirectToRoute('app_register');
-            }
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-            $confirmPassword = $form->get('confirmPassword')->getData();
-            if ($plainPassword !== $confirmPassword) {
-                $this->addFlash('error', 'Les mots de passe ne correspondent pas');
-                return $this->redirectToRoute('app_register');
-            }
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
@@ -53,7 +42,7 @@ class RegistrationController extends AbstractController
                "lastname" => $user->getLastname(),
 
            ];
-            $emailServices->send(
+            $emailService->send(
                 'admin@culstore.fr',
                 $user->getEmail(),
                 'Bienvenue sur notre site Culstore',

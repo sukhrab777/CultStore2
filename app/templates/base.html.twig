@@ -15,15 +15,13 @@
         <script src="{{ asset('js/script.js') }}" defer></script>
 
         {% block javascripts %}
-
-
         {% endblock %}
     </head>
+    <body>
     <header>
-       {% block header %}
     <nav>
         <a href="{{ path('app_products_index') }}" class="logo"><img src="{{ asset('images/logo_groupe_2.png') }}" alt="logo"></a>
-        <ul class="open">
+        <ul>
             {% if app.user %}
                 <li><a href="{{ path('app_user_account') }}">Mon compte</a></li>
                 <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
@@ -39,10 +37,8 @@
             </svg>
         </div>
     </nav>
-{% endblock %}
-
     </header>
-    <body>
+
         {% block body %}{% endblock %}
     </body>
 </html>

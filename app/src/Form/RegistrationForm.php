@@ -35,14 +35,6 @@ class RegistrationForm extends AbstractType
                     ])
                 ]
             ])
-            ->add('confirmEmail', EmailType::class, [
-                'label' => 'Confirmez votre email',
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez comfirmer votre adresse email']),
-                ]
-            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'J\'accepte les conditions d\'utilisation',
                 'mapped' => false,
@@ -69,16 +61,8 @@ class RegistrationForm extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('confirmPassword', PasswordType::class, [
-                'label' => 'Confirmez votre mot de passe',
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez confirmer votre mot de passe',
-                    ])
-                ]
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
