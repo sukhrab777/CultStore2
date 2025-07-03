@@ -5,48 +5,46 @@
 {% block body %}
     <main>
         <section>
-           <h1> les prochaines sorties</h1>
+            <h1> Les prochaines sorties</h1>
+            <div id="diapo">
+                <div class="elements">
+                    <article class="element active">
+                        <img src="{{ asset('images/woman-8725575_1280(1).jpg') }}" alt="diapo">
 
-                            <div class="elements">
-                                <article class="element active">
-                                    <img src="{{ asset('images/woman-8725575_1280(1).jpg') }}" alt="diapo">
+                    </article>
 
-                                </article>
+                    <article class="element">
+                        <img src="{{ asset('images/CK-Poster-NC-700x700-1.webp') }}" alt="diapo">
 
-                                <article class="element">
-                                    <img src="{{ asset('images/CK-Poster-NC-700x700-1.webp') }}" alt="diapo">
+                    </article>
 
-                                </article>
+                    <article class="element">
+                        <img src="{{ asset('/images/Poster Pulp Fiction (1)(2)(1).png') }}" alt="diapo">
 
-                                <article class="element">
-                                    <img src="{{ asset('/images/Poster Pulp Fiction (1)(2)(1).png') }}" alt="diapo">
+                    </article>
+            </div>
 
-                                </article>
-
-
-                            </div>
-                            <span id="flechedroite" role="button">⮕</span>
-                            <span id="flechegauche" role="button">⬅</span>
-                            <div class="indicators">
-                                <div class="bar active"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                            </div>
-
-
-
+            </div>
+            <span id="flechedroite" role="button">⮕</span>
+            <span id="flechegauche" role="button">⬅</span>
+            <div class="indicators">
+                <div class="bar active"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </section>
+
         <section>
             <h2>
                 Les nouveaux goodis préférés de la Redac'
             </h2>
             <div>
-                <img src="{{asset('images/stranger-things-poster-jpeg-684f.webp')  }}" alt="">
-                <img src="{{asset('images/stuffed-animals-235450-1280-684e.jpg')  }}" alt="">
+                <img src="{{ asset('images/stranger-things-poster-jpeg-684f.webp') }}" alt="">
+                <img src="{{ asset('images/stuffed-animals-235450-1280-684e.jpg') }}" alt="">
 
 
-                  <img src="{{ asset('images/teddy-358396-1280-684e0439c5b71 (1).jpg') }}" alt="">
-                  <img src="{{ asset('images/teddy-3405770-1280-684e0353a8dc5.jpg') }}" alt="">
+                <img src="{{ asset('images/teddy-358396-1280-684e0439c5b71 (1).jpg') }}" alt="">
+                <img src="{{ asset('images/teddy-3405770-1280-684e0353a8dc5.jpg') }}" alt="">
             </div>
         </section>
 
