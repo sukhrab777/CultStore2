@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Services\EventService;
+use App\Service\EventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
